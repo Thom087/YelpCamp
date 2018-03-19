@@ -17,7 +17,7 @@ var campgroundSchema = new mongoose.Schema({
         },
         username: String
     } 
-});
+}, { usePushEach: true });
 
 module.exports = mongoose.model("Campground", campgroundSchema);
 

@@ -33,10 +33,26 @@ router.post("/", middleware.isLoggedIn, function (req, res) {
                     comment.author.id = req.user._id;
                     comment.author.username = req.user.username;
                     //save comment
-                    comment.save();
+                    console.log("NEw Comment should be created.. on campground: ", comment);
+                    comment.save(function(err, comment_s){
+                        if(err){
+                            console.log("Something went wrong");
+                        } else {
+                            console.log("WE just saved a comment to the db");
+                        }
+                    });
                     //connect new comment to campgorund
                     campground.comments.push(comment);
-                    campground.save();
+                    console.log("This is our new campground: ",campground);
+                    campground.save(function(err, campground_s){
+                        if(err){
+                            console.log("Something went wrong");
+                            console.log(err);
+                        } else {
+                            console.log("WE just saved a campground to the db");
+                            console.log("This was finally saved: ", campground_s);
+                        }
+                    });
                     //redirect campground show page
                     res.redirect('/campgrounds/'+ campground._id);
                 }
